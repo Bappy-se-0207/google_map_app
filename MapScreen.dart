@@ -26,7 +26,6 @@ class _MapScreenState extends State<MapScreen> {
       updatePolyline(currentLocation);
     });
 
-    // Fetch the user's location every 10 seconds
     Timer.periodic(const Duration(seconds: 10), (timer) {
       _getLocation();
     });
@@ -45,10 +44,7 @@ class _MapScreenState extends State<MapScreen> {
   void updateMarkerAndCircle(LocationData locationData) {
     LatLng latLng = LatLng(locationData.latitude!, locationData.longitude!);
 
-    // Clear previous markers
     _markers.clear();
-
-    // Add a new marker at the current location
     _markers.add(
       Marker(
         markerId: const MarkerId("myLocation"),
@@ -59,7 +55,6 @@ class _MapScreenState extends State<MapScreen> {
       ),
     );
 
-    // Move camera to the user's current location
     _controller.future.then((controller) {
       controller.animateCamera(
         CameraUpdate.newLatLngZoom(latLng, 15),
@@ -70,10 +65,7 @@ class _MapScreenState extends State<MapScreen> {
   void updatePolyline(LocationData locationData) {
     LatLng latLng = LatLng(locationData.latitude!, locationData.longitude!);
 
-    // Add the current location to the list of coordinates
     _polylineCoordinates.add(latLng);
-
-    // Create a new Polyline with the updated coordinates
     _polyline = Polyline(
       polylineId: const PolylineId("poly"),
       color: Colors.blue,
